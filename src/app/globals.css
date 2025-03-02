@@ -4,8 +4,8 @@
 
 :root {
   --foreground-rgb: 0, 0, 0;
-  --background-start-rgb: 196, 181, 253;
-  --background-end-rgb: 251, 207, 232;
+  --background-start-rgb: 255, 255, 255;
+  --background-end-rgb: 255, 255, 255;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -16,36 +16,25 @@
   }
 }
 
-
-
 body {
   color: rgb(var(--foreground-rgb));
-  background: linear-gradient(135deg,
-      transparent,
-      rgb(var(--background-end-rgb))) rgb(var(--background-start-rgb));
-
-
+  background: linear-gradient(135deg, transparent, rgb(var(--background-end-rgb)))
+    rgb(var(--background-start-rgb));
 }
-
-
 
 .title:hover {
   --bg-size: 400%;
   --color-one: hsl(15 90% 55%);
   --color-two: hsl(40 95% 55%);
 
-  background: linear-gradient(90deg,
-      var(--color-one),
-      var(--color-two),
-      var(--color-one)) 0 0 / var(--bg-size) 100%;
+  background: linear-gradient(90deg, var(--color-one), var(--color-two), var(--color-one)) 0 0 /
+    var(--bg-size) 100%;
   color: transparent;
   background-clip: text;
   -webkit-background-clip: text;
 
   -webkit-animation: move-bg 6s linear infinite;
   animation: move-bg 6s linear infinite;
-
-
 }
 
 @keyframes move-bg {
@@ -53,7 +42,6 @@ body {
     background-position: var(--bg-size) 0;
   }
 }
-
 
 .loader {
   border-top-color: #3498db;
