@@ -10,9 +10,13 @@
     "pretty": "prettier --write \"./**/*.{js,jsx,ts,tsx,}\""
   },
   "dependencies": {
+    "@types/geojson": "^7946.0.16",
+    "deck.gl": "^9.1.4",
+    "mapbox-gl": "^3.10.0",
     "next": "^15.1.7",
     "react": "^18",
-    "react-dom": "^18"
+    "react-dom": "^18",
+    "react-map-gl": "^8.0.1"
   },
   "devDependencies": {
     "@types/node": "^20",

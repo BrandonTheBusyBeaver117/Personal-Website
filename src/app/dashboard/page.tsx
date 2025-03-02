@@ -20,13 +20,13 @@ const Dashboard: React.FC = () => {
 
         <h2 className="m-5">Chances of allowing Brandon to intern at LJL:</h2>
         <div className="text-1xl relative mb-6 flex w-3/4 grow-[5] basis-0 flex-col items-center">
-          <Image
+          {/* <Image
             className="relative"
             src="/upwardtrend.jpg"
             alt="chart"
             fill={true}
             style={{ objectFit: 'contain' }}
-          />
+          /> */}
         </div>
       </div>
     </>
