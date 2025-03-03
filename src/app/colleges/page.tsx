@@ -6,13 +6,13 @@ import Link from 'next/link';
 import { useEffect, useState } from 'react';
 
 import { useRouter } from 'next/navigation';
-import Loading from './components/loading';
+import Loading from '../components/loading';
 import DeckGL, { GeoJsonLayer, PickingInfo, FlyToInterpolator, MapViewState } from 'deck.gl';
 
 import Map from 'react-map-gl/mapbox';
 import { GeoJSON } from 'geojson';
 
-// import COLLEGE_DATA from './filtered_colleges.json';
+import COLLEGE_DATA from './filtered_colleges.json';
 
 type College = {
   properties: {
@@ -30,7 +30,7 @@ type CursorState = {
   isHovering: boolean;
 };
 
-const Home: React.FC = () => {
+const Colleges: React.FC = () => {
   // Initializing router
   const router = useRouter();
 
@@ -87,29 +87,30 @@ const Home: React.FC = () => {
     });
   };
 
-  // const layers = [
-  //   new GeoJsonLayer({
-  //     id: 'colleges',
-  //     data: COLLEGE_DATA as GeoJSON,
-  //     // Styles
-  //     filled: true,
-  //     pointRadiusMinPixels: 5,
-  //     pointRadiusMaxPixels: 25,
-  //     pointRadiusScale: 750,
-  //     // getPointRadius: (f: any) => {
-  //     //   console.log(f);
-  //     //   return 5;
-  //     // },
-  //     getFillColor: [86, 144, 58, 250],
-  //     pickable: true,
-  //     autoHighlight: true,
-  //     onClick: (collegeInfo: PickingInfo<College>) => onClick(collegeInfo),
-  //   }),
-  // ];
+  const layers = [
+    new GeoJsonLayer({
+      id: 'colleges',
+      data: COLLEGE_DATA as GeoJSON,
+      // Styles
+      filled: true,
+      pointRadiusMinPixels: 5,
+      pointRadiusMaxPixels: 25,
+      pointRadiusScale: 750,
+      // getPointRadius: (f: any) => {
+      //   console.log(f);
+      //   return 5;
+      // },
+      getFillColor: [86, 144, 58, 250],
+      pickable: true,
+      autoHighlight: true,
+      onClick: (collegeInfo: PickingInfo<College>) => onClick(collegeInfo),
+    }),
+  ];
 
   return (
     <>
-      {/* <DeckGL initialViewState={viewState} controller={true} layers={layers} getCursor={getCursor}>
+      <Loading />
+      <DeckGL initialViewState={viewState} controller={true} layers={layers} getCursor={getCursor}>
         <Map mapStyle={MAP_STYLE} mapboxAccessToken={MAPBOX_KEY} />
       </DeckGL>
       <button
@@ -117,31 +118,9 @@ const Home: React.FC = () => {
         onClick={resetCamera}
       >
         Reset
-      </button> */}
-
-      <div className="flex min-h-72 w-full max-w-xl flex-col items-center justify-evenly rounded-lg bg-white px-8">
-        <h1 className="text-center">Beaver dam</h1>
-        <h1 className="text-center">A personal website for Brandon Nguyen</h1>
-        <h1 className="text-center">Login or sign up below</h1>
-      </div>
-
-      <div className="flex h-12 w-1/5 justify-between">
-        <Link
-          className="flex basis-1/3 items-center justify-center rounded-full bg-slate-100 transition duration-300 ease-in-out hover:-translate-y-1 hover:bg-sky-200"
-          href="/colleges"
-        >
-          <div>College Tracker</div>
-        </Link>
-        {/* 
-        <Link
-          className="flex basis-1/3 items-center justify-center rounded-full bg-slate-100 transition duration-300 ease-in-out hover:-translate-y-1 hover:bg-sky-200"
-          href="/signup"
-        >
-          <div>Sign up</div>
-        </Link> */}
-      </div>
+      </button>
     </>
   );
 };
 
-export default Home;
+export default Colleges;

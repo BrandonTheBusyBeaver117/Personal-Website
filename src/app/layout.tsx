@@ -23,6 +23,9 @@ export default function RootLayout({
         <link rel="icon" href="/favicon.ico" sizes="any" />
       </head>
       <body className={inter.className}>
+        <div className="fixed left-0 top-0 -z-10 min-h-[100vw] min-w-[150vw] bg-fixed">
+          <Image src="/background-aurora.png" alt="" fill={true}></Image>
+        </div>
         <header className="flex h-[12.5vh] items-center justify-center">
           <Link href="/">
             <div className="title text-6xl font-semibold transition">The Beaver Dam</div>
@@ -32,7 +35,7 @@ export default function RootLayout({
         <main className="flex h-[80vh] flex-col items-center justify-evenly">{children}</main>
 
         <footer className="flex h-[7.5vh] items-center justify-center">
-          <div>Website designed by Brandon Nguyen</div>
+          <div>Brandon Nguyen's Personal Website</div>
         </footer>
       </body>
     </html>
