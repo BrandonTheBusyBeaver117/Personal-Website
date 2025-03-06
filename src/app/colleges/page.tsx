@@ -13,6 +13,8 @@ import Map from 'react-map-gl/mapbox';
 import { GeoJSON } from 'geojson';
 
 import COLLEGE_DATA from './filtered_colleges.json';
+import { FormControlLabel, FormGroup, Switch } from '@mui/material';
+import Timeline from './timeline';
 
 type College = {
   properties: {
@@ -31,8 +33,8 @@ type CursorState = {
 };
 
 const Colleges: React.FC = () => {
-  // Initializing router
-  const router = useRouter();
+  const [isDeckRendered, setIsDeckRendered] = useState(false);
+  const [shouldZoom, setShouldZoom] = useState(true);
 
   const MAPBOX_KEY =
     'pk.eyJ1IjoicGFzc2FiZWF2ZXI5MDkiLCJhIjoiY203cHZkdGg0MG9zcDJqb3AzMjE5cGRlayJ9.nBKnKKs04SY1UOuMe1aY_g';
@@ -109,16 +111,54 @@ const Colleges: React.FC = () => {
 
   return (
     <>
-      <Loading />
-      <DeckGL initialViewState={viewState} controller={true} layers={layers} getCursor={getCursor}>
-        <Map mapStyle={MAP_STYLE} mapboxAccessToken={MAPBOX_KEY} />
-      </DeckGL>
-      <button
-        className="z-10 rounded-full bg-slate-100 px-[0.75rem] py-[0.25rem] transition duration-300 ease-in-out hover:bg-sky-200"
-        onClick={resetCamera}
-      >
-        Reset
-      </button>
+      <Loading isLoadingFinished={isDeckRendered} />
+
+      <div className="fixed left-0 top-0 h-screen w-screen">
+        <DeckGL
+          initialViewState={viewState}
+          controller={true}
+          layers={layers}
+          getCursor={getCursor}
+          onLoad={() => setIsDeckRendered(true)}
+        >
+          <Map mapStyle={MAP_STYLE} mapboxAccessToken={MAPBOX_KEY} />
+        </DeckGL>
+      </div>
+
+      <Timeline />
+
+      <div className="fixed bottom-0 right-0 z-10 flex h-1/5 w-1/5 flex-col items-center justify-evenly rounded-lg bg-gray-100 bg-opacity-25">
+        {/* We need smth else for the "what date do u want to get updated on" */}
+        <FormGroup>
+          <FormControlLabel
+            control={
+              <Switch
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  setShouldZoom(event.target.checked);
+                }}
+                defaultChecked
+              />
+            }
+            label="Zoom to most recent school?"
+          />
+        </FormGroup>
+
+        <div></div>
+        <button
+          className="z-10 rounded-full bg-slate-100 bg-opacity-100 px-[0.75rem] py-[0.25rem] transition duration-300 ease-in-out hover:bg-sky-200"
+          onClick={resetCamera}
+        >
+          Reset
+        </button>
+        <Link
+          className="z-10 rounded-full bg-slate-100 bg-opacity-100 px-[0.75rem] py-[0.25rem] transition duration-300 ease-in-out hover:bg-sky-200"
+          href="/"
+        >
+          Home
+        </Link>
+      </div>
+
+      <div></div>
     </>
   );
 };
