@@ -105,7 +105,6 @@ const Colleges: React.FC = () => {
   };
 
   const getColor = (collegeInfo: College): [number, number, number, number] => {
-    console.log(collegeInfo);
     const college = collegeInfo.properties;
 
     // If alias exists, check it
@@ -115,36 +114,25 @@ const Colleges: React.FC = () => {
       const aliases = college.ALIAS.split(', ');
       names.push(...aliases);
     }
+
     const strippedUniversity = college.NAME.toLowerCase().replace('university', '').trim();
     const strippedCollege = college.NAME.toLowerCase().replace('college', '').trim();
     names.push(strippedUniversity, strippedCollege);
 
-    console.log('names');
-    console.log(names);
-
     let decision;
-
     for (const currentDecision of parsedDecisions) {
-      console.log('current');
-      console.log(currentDecision);
-
       if (decision) {
         break;
       }
 
       for (const name of names) {
-        console.log('name lowered?');
-        console.log(name.toLowerCase());
-        console.log('current decision lowered');
-        console.log(currentDecision.College.toLowerCase());
-        console.log(currentDecision.College.toLowerCase().includes(name.toLowerCase()));
-        console.log(currentDecision.College.toLowerCase() == name.toLowerCase());
+        // console.log('name lowered?');
+        // console.log(name.toLowerCase());
+        // console.log('current decision lowered');
+        // console.log(currentDecision.College.toLowerCase());
+        // console.log(currentDecision.College.toLowerCase().includes(name.toLowerCase()));
         if (currentDecision.College.toLowerCase().includes(name.toLowerCase())) {
-          // if (currentDecision.College == 'UC Berkeley') {
-          //   console.log('potential match?');
-          //   console.log(name);
-          // }
-          console.log('awoogs');
+          // console.log('awoogs');
           decision = currentDecision;
           break;
         }
@@ -159,14 +147,14 @@ const Colleges: React.FC = () => {
 
     switch (decision.Decision) {
       case 'ACCEPTED':
-        return [0, 128, 0, 255];
+        return [145, 230, 150, 255];
       case 'Rejected lol':
-        return [255, 0, 0, 255];
+        return [255, 145, 125, 255];
       case 'Waitlisted':
-        return [255, 165, 0, 255];
+        return [255, 229, 160, 255];
       case 'Awaiting':
       default:
-        return [0, 0, 255, 255];
+        return [192, 225, 255, 255];
     }
   };
 
