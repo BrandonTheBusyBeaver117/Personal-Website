@@ -1,20 +1,20 @@
 'use client';
 
-import Image from 'next/image';
 import Link from 'next/link';
 
 import { useEffect, useState } from 'react';
 
-import { useRouter } from 'next/navigation';
-import Loading from '../components/loading';
 import DeckGL, { GeoJsonLayer, PickingInfo, FlyToInterpolator, MapViewState } from 'deck.gl';
-
 import Map from 'react-map-gl/mapbox';
 import { GeoJSON } from 'geojson';
 
 import COLLEGE_DATA from './filtered_colleges.json';
+import COLLEGE_DECISIONS from './college_decisions.json';
+
 import { FormControlLabel, FormGroup, Switch } from '@mui/material';
 import Timeline from './timeline';
+
+import Loading from '../components/loading';
 
 type College = {
   properties: {
@@ -24,7 +24,16 @@ type College = {
     STATE: string;
     LATITUDE: number;
     LONGITUDE: number;
+    ALIAS?: string;
   };
+};
+
+type CollegeDecision = {
+  College: string; // College name
+  Ranking: number; // Numeric ranking
+  'Decision Date': string; // Date in string format (can be converted to Date if needed)
+  Prediction: 'ACCEPTED' | 'Rejected lol' | 'Waitlisted' | 'Awaiting'; // Prediction type
+  Decision: 'ACCEPTED' | 'Rejected lol' | 'Waitlisted' | 'Awaiting'; // Actual decision (optional if undecided)
 };
 
 type CursorState = {
@@ -35,6 +44,12 @@ type CursorState = {
 const Colleges: React.FC = () => {
   const [isDeckRendered, setIsDeckRendered] = useState(false);
   const [shouldZoom, setShouldZoom] = useState(true);
+
+  const [parsedDecisions, setParsedDecisions] = useState<CollegeDecision[]>(
+    COLLEGE_DECISIONS as CollegeDecision[],
+  );
+
+  console.log(parsedDecisions);
 
   const MAPBOX_KEY =
     'pk.eyJ1IjoicGFzc2FiZWF2ZXI5MDkiLCJhIjoiY203cHZkdGg0MG9zcDJqb3AzMjE5cGRlayJ9.nBKnKKs04SY1UOuMe1aY_g';
@@ -89,6 +104,72 @@ const Colleges: React.FC = () => {
     });
   };
 
+  const getColor = (collegeInfo: College): [number, number, number, number] => {
+    console.log(collegeInfo);
+    const college = collegeInfo.properties;
+
+    // If alias exists, check it
+    const names = [college.NAME];
+
+    if (college.ALIAS) {
+      const aliases = college.ALIAS.split(', ');
+      names.push(...aliases);
+    }
+    const strippedUniversity = college.NAME.toLowerCase().replace('university', '').trim();
+    const strippedCollege = college.NAME.toLowerCase().replace('college', '').trim();
+    names.push(strippedUniversity, strippedCollege);
+
+    console.log('names');
+    console.log(names);
+
+    let decision;
+
+    for (const currentDecision of parsedDecisions) {
+      console.log('current');
+      console.log(currentDecision);
+
+      if (decision) {
+        break;
+      }
+
+      for (const name of names) {
+        console.log('name lowered?');
+        console.log(name.toLowerCase());
+        console.log('current decision lowered');
+        console.log(currentDecision.College.toLowerCase());
+        console.log(currentDecision.College.toLowerCase().includes(name.toLowerCase()));
+        console.log(currentDecision.College.toLowerCase() == name.toLowerCase());
+        if (currentDecision.College.toLowerCase().includes(name.toLowerCase())) {
+          // if (currentDecision.College == 'UC Berkeley') {
+          //   console.log('potential match?');
+          //   console.log(name);
+          // }
+          console.log('awoogs');
+          decision = currentDecision;
+          break;
+        }
+      }
+    }
+
+    if (!decision) {
+      console.log('No match');
+      console.log(college);
+      return [255, 255, 255, 255];
+    }
+
+    switch (decision.Decision) {
+      case 'ACCEPTED':
+        return [0, 128, 0, 255];
+      case 'Rejected lol':
+        return [255, 0, 0, 255];
+      case 'Waitlisted':
+        return [255, 165, 0, 255];
+      case 'Awaiting':
+      default:
+        return [0, 0, 255, 255];
+    }
+  };
+
   const layers = [
     new GeoJsonLayer({
       id: 'colleges',
@@ -102,7 +183,8 @@ const Colleges: React.FC = () => {
       //   console.log(f);
       //   return 5;
       // },
-      getFillColor: [86, 144, 58, 250],
+      //getFillColor: [86, 144, 58, 250],
+      getFillColor: (collegeInfo: College) => getColor(collegeInfo),
       pickable: true,
       autoHighlight: true,
       onClick: (collegeInfo: PickingInfo<College>) => onClick(collegeInfo),

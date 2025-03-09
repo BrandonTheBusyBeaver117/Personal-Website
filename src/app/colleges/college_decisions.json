@@ -1,0 +1,184 @@
+[
+  {
+    "College": "Stanford",
+    "Ranking": 1,
+    "Decision Date": "",
+    "Prediction": "ACCEPTED",
+    "Decision": "Awaiting..."
+  },
+  {
+    "College": "UC Berkeley",
+    "Ranking": 2,
+    "Decision Date": "Late March",
+    "Prediction": "Rejected lol",
+    "Decision": "Awaiting..."
+  },
+  {
+    "College": "MIT",
+    "Ranking": 3,
+    "Decision Date": "",
+    "Prediction": "Rejected lol",
+    "Decision": "Awaiting..."
+  },
+  {
+    "College": "Caltech",
+    "Ranking": 4,
+    "Decision Date": "",
+    "Prediction": "Rejected lol",
+    "Decision": "Awaiting..."
+  },
+  {
+    "College": "UC Los Angeles (UCLA)",
+    "Ranking": 5,
+    "Decision Date": "",
+    "Prediction": "Rejected lol",
+    "Decision": "Awaiting..."
+  },
+  {
+    "College": "Cornell",
+    "Ranking": 6,
+    "Decision Date": "",
+    "Prediction": "Rejected lol",
+    "Decision": "Awaiting..."
+  },
+  {
+    "College": "Brown",
+    "Ranking": 7,
+    "Decision Date": "",
+    "Prediction": "Rejected lol",
+    "Decision": "Awaiting..."
+  },
+  {
+    "College": "Carnegie Mellon",
+    "Ranking": 8,
+    "Decision Date": "",
+    "Prediction": "Rejected lol",
+    "Decision": "Awaiting..."
+  },
+  {
+    "College": "Princeton",
+    "Ranking": 9,
+    "Decision Date": "",
+    "Prediction": "Rejected lol",
+    "Decision": "Awaiting..."
+  },
+  {
+    "College": "UC San Diego (UCSD)",
+    "Ranking": 10,
+    "Decision Date": "",
+    "Prediction": "Rejected lol",
+    "Decision": "Awaiting..."
+  },
+  {
+    "College": "UC Santa Barbara (UCSB)",
+    "Ranking": 11,
+    "Decision Date": "",
+    "Prediction": "Rejected lol",
+    "Decision": "Awaiting..."
+  },
+  {
+    "College": "Cal Poly SLO",
+    "Ranking": 12,
+    "Decision Date": "",
+    "Prediction": "Rejected lol",
+    "Decision": "Awaiting..."
+  },
+  {
+    "College": "UC Irvine",
+    "Ranking": 13,
+    "Decision Date": "",
+    "Prediction": "Rejected lol",
+    "Decision": "Awaiting..."
+  },
+  {
+    "College": "San Jose State",
+    "Ranking": 14,
+    "Decision Date": "2/10/2025",
+    "Prediction": "ACCEPTED",
+    "Decision": "ACCEPTED"
+  },
+  {
+    "College": "UC Davis",
+    "Ranking": 15,
+    "Decision Date": "",
+    "Prediction": "ACCEPTED",
+    "Decision": "Awaiting..."
+  },
+  {
+    "College": "Harvey Mudd",
+    "Ranking": 16,
+    "Decision Date": "",
+    "Prediction": "ACCEPTED",
+    "Decision": "Awaiting..."
+  },
+  {
+    "College": "Purdue",
+    "Ranking": 17,
+    "Decision Date": "",
+    "Prediction": "ACCEPTED",
+    "Decision": "Awaiting..."
+  },
+  {
+    "College": "USC",
+    "Ranking": 18,
+    "Decision Date": "",
+    "Prediction": "Rejected lol",
+    "Decision": "Awaiting..."
+  },
+  {
+    "College": "UC Merced",
+    "Ranking": 19,
+    "Decision Date": "12/18/2024",
+    "Prediction": "ACCEPTED",
+    "Decision": "ACCEPTED"
+  },
+  {
+    "College": "Cal Poly Pomona",
+    "Ranking": 20,
+    "Decision Date": "2/4/2025",
+    "Prediction": "ACCEPTED",
+    "Decision": "ACCEPTED"
+  },
+  {
+    "College": "UC Santa Cruz",
+    "Ranking": 21,
+    "Decision Date": "2/21/2025",
+    "Prediction": "ACCEPTED",
+    "Decision": "ACCEPTED"
+  },
+  {
+    "College": "UC Riverside",
+    "Ranking": 22,
+    "Decision Date": "2/28/2025",
+    "Prediction": "ACCEPTED",
+    "Decision": "ACCEPTED"
+  },
+  {
+    "College": "San Diego State",
+    "Ranking": 23,
+    "Decision Date": "12/17/2024",
+    "Prediction": "ACCEPTED",
+    "Decision": "ACCEPTED"
+  },
+  {
+    "College": "Santa Clara",
+    "Ranking": 24,
+    "Decision Date": "April 1st",
+    "Prediction": "ACCEPTED",
+    "Decision": "Awaiting..."
+  },
+  {
+    "College": "Northeastern",
+    "Ranking": 25,
+    "Decision Date": "April 1st",
+    "Prediction": "ACCEPTED",
+    "Decision": "Awaiting..."
+  },
+  {
+    "College": "SF State",
+    "Ranking": 26,
+    "Decision Date": "12/3/2025",
+    "Prediction": "ACCEPTED",
+    "Decision": "ACCEPTED"
+  }
+]
