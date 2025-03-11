@@ -105,29 +105,29 @@ const Colleges: React.FC = () => {
     return state.isHovering ? 'pointer' : 'default';
   };
 
+  const customTransitionEasing = (x: number) => {
+    return -(Math.cos(Math.PI * x) - 1) / 2;
+  };
+
+  const interpolator = new FlyToInterpolator({ speed: 3 / 4 });
+
   const flyToCollege = (longitude: number, latitude: number) => {
     setViewState({
       longitude: longitude,
       latitude: latitude,
       zoom: 10,
-      transitionInterpolator: new FlyToInterpolator({ speed: 1 }),
+      transitionInterpolator: interpolator,
       transitionDuration: 'auto',
-      transitionEasing: (x) => {
-        // Funny cubic easing
-        return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
-      },
+      transitionEasing: customTransitionEasing,
     });
   };
 
   const resetCamera = () => {
     setViewState({
       ...initialViewState,
-      transitionInterpolator: new FlyToInterpolator({ speed: 1 }),
+      transitionInterpolator: interpolator,
       transitionDuration: 'auto',
-      transitionEasing: (x) => {
-        // Funny cubic easing
-        return x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
-      },
+      transitionEasing: customTransitionEasing,
     });
   };
 
