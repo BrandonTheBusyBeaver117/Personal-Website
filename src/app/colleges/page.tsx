@@ -2,13 +2,12 @@
 
 import Link from 'next/link';
 
-import { useEffect, useState } from 'react';
+import { useState } from 'react';
 
 import DeckGL, { GeoJsonLayer, PickingInfo, FlyToInterpolator, MapViewState } from 'deck.gl';
 import Map from 'react-map-gl/mapbox';
 import { GeoJSON } from 'geojson';
 
-// import COLLEGE_DATA from './filtered_colleges.json';
 import COLLEGE_DATA from './college_decisions.json';
 
 import { FormControlLabel, FormGroup, Switch } from '@mui/material';
@@ -34,29 +33,12 @@ export type College = {
 };
 
 type CollegeGeoJSON = {
-  // type: string,
-  // features: {
-  // type: string;
   properties: {
     collegeData: College;
   };
-  // geometry: {
-  //   type: string;
-  //   coordinates: [number, number];
-  // }
 };
-// [];
-// };
 
 const colleges = COLLEGE_DATA as College[];
-
-// export type CollegeDecision = {
-//   College: string; // College name
-//   Ranking: number; // Numeric ranking
-//   'Decision Date': string; // Date in string format (can be converted to Date if needed)
-//   Prediction: 'ACCEPTED' | 'Rejected lol' | 'Waitlisted' | 'Awaiting...'; // Prediction type
-//   Decision: 'ACCEPTED' | 'Rejected lol' | 'Waitlisted' | 'Awaiting...'; // Actual decision (optional if undecided)
-// };
 
 type CursorState = {
   isDragging: boolean;
@@ -89,13 +71,6 @@ const Colleges: React.FC = () => {
   const [viewState, setViewState] = useState<MapViewState>(initialViewState);
 
   const displayCollegeCard = (college: College) => {
-    flyToCollege(college.Longitude, college.Latitude);
-  };
-
-  const onClick = (collegeInfo: PickingInfo<College>) => {
-    const college = collegeInfo.object;
-    if (!college) return;
-    console.log(college.OfficialName);
     flyToCollege(college.Longitude, college.Latitude);
   };
 
@@ -172,11 +147,7 @@ const Colleges: React.FC = () => {
       pointRadiusMinPixels: 5,
       pointRadiusMaxPixels: 25,
       pointRadiusScale: 750,
-      // getPointRadius: (f: any) => {
-      //   console.log(f);
-      //   return 5;
-      // },
-      //getFillColor: [86, 144, 58, 250],
+
       getFillColor: (collegeGeoParam: CollegeGeoJSON) =>
         getColor(collegeGeoParam.properties.collegeData),
       pickable: true,
