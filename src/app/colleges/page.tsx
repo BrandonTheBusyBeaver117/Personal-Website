@@ -16,7 +16,7 @@ import Timeline from './timeline';
 
 import Loading from '../components/loading';
 
-type College = {
+export type College = {
   properties: {
     NAME: string;
     ADDRESS: string;
@@ -28,12 +28,12 @@ type College = {
   };
 };
 
-type CollegeDecision = {
+export type CollegeDecision = {
   College: string; // College name
   Ranking: number; // Numeric ranking
   'Decision Date': string; // Date in string format (can be converted to Date if needed)
-  Prediction: 'ACCEPTED' | 'Rejected lol' | 'Waitlisted' | 'Awaiting'; // Prediction type
-  Decision: 'ACCEPTED' | 'Rejected lol' | 'Waitlisted' | 'Awaiting'; // Actual decision (optional if undecided)
+  Prediction: 'ACCEPTED' | 'Rejected lol' | 'Waitlisted' | 'Awaiting...'; // Prediction type
+  Decision: 'ACCEPTED' | 'Rejected lol' | 'Waitlisted' | 'Awaiting...'; // Actual decision (optional if undecided)
 };
 
 type CursorState = {
@@ -44,6 +44,7 @@ type CursorState = {
 const Colleges: React.FC = () => {
   const [isDeckRendered, setIsDeckRendered] = useState(false);
   const [shouldZoom, setShouldZoom] = useState(true);
+  const [startAtMostRecent, setStartAtMostRecent] = useState(false);
 
   const [parsedDecisions, setParsedDecisions] = useState<CollegeDecision[]>(
     COLLEGE_DECISIONS as CollegeDecision[],
@@ -152,7 +153,7 @@ const Colleges: React.FC = () => {
         return [255, 145, 125, 255];
       case 'Waitlisted':
         return [255, 229, 160, 255];
-      case 'Awaiting':
+      case 'Awaiting...':
       default:
         return [192, 225, 255, 255];
     }
@@ -195,7 +196,7 @@ const Colleges: React.FC = () => {
         </DeckGL>
       </div>
 
-      <Timeline />
+      <Timeline decisions={parsedDecisions} startAtMostRecent={startAtMostRecent} />
 
       <div className="fixed bottom-0 right-0 z-10 flex h-1/5 w-1/5 flex-col items-center justify-evenly rounded-lg bg-gray-100 bg-opacity-25">
         {/* We need smth else for the "what date do u want to get updated on" */}
@@ -205,6 +206,17 @@ const Colleges: React.FC = () => {
               <Switch
                 onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
                   setShouldZoom(event.target.checked);
+                }}
+                defaultChecked
+              />
+            }
+            label="Zoom to most recent school?"
+          />
+          <FormControlLabel
+            control={
+              <Switch
+                onChange={(event: React.ChangeEvent<HTMLInputElement>) => {
+                  setStartAtMostRecent(event.target.checked);
                 }}
                 defaultChecked
               />
