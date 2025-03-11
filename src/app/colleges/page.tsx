@@ -8,8 +8,8 @@ import DeckGL, { GeoJsonLayer, PickingInfo, FlyToInterpolator, MapViewState } fr
 import Map from 'react-map-gl/mapbox';
 import { GeoJSON } from 'geojson';
 
-import COLLEGE_DATA from './filtered_colleges.json';
-import COLLEGE_DECISIONS from './college_decisions.json';
+// import COLLEGE_DATA from './filtered_colleges.json';
+import COLLEGE_DATA from './college_decisions.json';
 
 import { FormControlLabel, FormGroup, Switch } from '@mui/material';
 import Timeline from './timeline';
@@ -17,24 +17,46 @@ import Timeline from './timeline';
 import Loading from '../components/loading';
 
 export type College = {
-  properties: {
-    NAME: string;
-    ADDRESS: string;
-    CITY: string;
-    STATE: string;
-    LATITUDE: number;
-    LONGITUDE: number;
-    ALIAS?: string;
-  };
-};
-
-export type CollegeDecision = {
   College: string; // College name
   Ranking: number; // Numeric ranking
   'Decision Date': string; // Date in string format (can be converted to Date if needed)
   Prediction: 'ACCEPTED' | 'Rejected lol' | 'Waitlisted' | 'Awaiting...'; // Prediction type
   Decision: 'ACCEPTED' | 'Rejected lol' | 'Waitlisted' | 'Awaiting...'; // Actual decision (optional if undecided)
+  OfficialName: string;
+  Alias: string;
+  Address: string;
+  City: string;
+  State: string;
+  Population: number;
+  County: string;
+  Latitude: number;
+  Longitude: number;
 };
+
+type CollegeGeoJSON = {
+  // type: string,
+  // features: {
+  // type: string;
+  properties: {
+    collegeData: College;
+  };
+  // geometry: {
+  //   type: string;
+  //   coordinates: [number, number];
+  // }
+};
+// [];
+// };
+
+const colleges = COLLEGE_DATA as College[];
+
+// export type CollegeDecision = {
+//   College: string; // College name
+//   Ranking: number; // Numeric ranking
+//   'Decision Date': string; // Date in string format (can be converted to Date if needed)
+//   Prediction: 'ACCEPTED' | 'Rejected lol' | 'Waitlisted' | 'Awaiting...'; // Prediction type
+//   Decision: 'ACCEPTED' | 'Rejected lol' | 'Waitlisted' | 'Awaiting...'; // Actual decision (optional if undecided)
+// };
 
 type CursorState = {
   isDragging: boolean;
@@ -46,11 +68,11 @@ const Colleges: React.FC = () => {
   const [shouldZoom, setShouldZoom] = useState(true);
   const [startAtMostRecent, setStartAtMostRecent] = useState(false);
 
-  const [parsedDecisions, setParsedDecisions] = useState<CollegeDecision[]>(
-    COLLEGE_DECISIONS as CollegeDecision[],
-  );
+  // const [parsedDecisions, setParsedDecisions] = useState<CollegeDecision[]>(
+  //   COLLEGE_DECISIONS as CollegeDecision[],
+  // );
 
-  console.log(parsedDecisions);
+  // console.log(parsedDecisions);
 
   const MAPBOX_KEY =
     'pk.eyJ1IjoicGFzc2FiZWF2ZXI5MDkiLCJhIjoiY203cHZkdGg0MG9zcDJqb3AzMjE5cGRlayJ9.nBKnKKs04SY1UOuMe1aY_g';
@@ -66,11 +88,15 @@ const Colleges: React.FC = () => {
 
   const [viewState, setViewState] = useState<MapViewState>(initialViewState);
 
+  const displayCollegeCard = (college: College) => {
+    flyToCollege(college.Longitude, college.Latitude);
+  };
+
   const onClick = (collegeInfo: PickingInfo<College>) => {
-    const college = collegeInfo.object?.properties;
+    const college = collegeInfo.object;
     if (!college) return;
-    console.log(college.NAME);
-    flyToCollege(college.LONGITUDE, college.LATITUDE);
+    console.log(college.OfficialName);
+    flyToCollege(college.Longitude, college.Latitude);
   };
 
   const getCursor = (state: CursorState) => {
@@ -105,48 +131,8 @@ const Colleges: React.FC = () => {
     });
   };
 
-  const getColor = (collegeInfo: College): [number, number, number, number] => {
-    const college = collegeInfo.properties;
-
-    // If alias exists, check it
-    const names = [college.NAME];
-
-    if (college.ALIAS) {
-      const aliases = college.ALIAS.split(', ');
-      names.push(...aliases);
-    }
-
-    const strippedUniversity = college.NAME.toLowerCase().replace('university', '').trim();
-    const strippedCollege = college.NAME.toLowerCase().replace('college', '').trim();
-    names.push(strippedUniversity, strippedCollege);
-
-    let decision;
-    for (const currentDecision of parsedDecisions) {
-      if (decision) {
-        break;
-      }
-
-      for (const name of names) {
-        // console.log('name lowered?');
-        // console.log(name.toLowerCase());
-        // console.log('current decision lowered');
-        // console.log(currentDecision.College.toLowerCase());
-        // console.log(currentDecision.College.toLowerCase().includes(name.toLowerCase()));
-        if (currentDecision.College.toLowerCase().includes(name.toLowerCase())) {
-          // console.log('awoogs');
-          decision = currentDecision;
-          break;
-        }
-      }
-    }
-
-    if (!decision) {
-      console.log('No match');
-      console.log(college);
-      return [255, 255, 255, 255];
-    }
-
-    switch (decision.Decision) {
+  const getColor = (college: College): [number, number, number, number] => {
+    switch (college.Decision) {
       case 'ACCEPTED':
         return [145, 230, 150, 255];
       case 'Rejected lol':
@@ -159,10 +145,28 @@ const Colleges: React.FC = () => {
     }
   };
 
+  const collegeGeo: GeoJSON = {
+    type: 'FeatureCollection',
+    features: colleges.map((college) => {
+      return {
+        type: 'Feature',
+        id: college.Ranking,
+        properties: {
+          collegeData: college,
+        },
+        geometry: {
+          type: 'Point',
+          coordinates: [college.Longitude, college.Latitude],
+        },
+      };
+    }),
+  };
+
   const layers = [
     new GeoJsonLayer({
       id: 'colleges',
-      data: COLLEGE_DATA as GeoJSON,
+      data: collegeGeo,
+
       // Styles
       filled: true,
       pointRadiusMinPixels: 5,
@@ -173,10 +177,21 @@ const Colleges: React.FC = () => {
       //   return 5;
       // },
       //getFillColor: [86, 144, 58, 250],
-      getFillColor: (collegeInfo: College) => getColor(collegeInfo),
+      getFillColor: (collegeGeoParam: CollegeGeoJSON) =>
+        getColor(collegeGeoParam.properties.collegeData),
       pickable: true,
       autoHighlight: true,
-      onClick: (collegeInfo: PickingInfo<College>) => onClick(collegeInfo),
+      onClick: (collegeInfo: PickingInfo) => {
+        console.log(collegeInfo);
+        const college = collegeInfo?.object.properties.collegeData;
+        console.log(college);
+
+        if (!college) {
+          console.log(college);
+          return;
+        }
+        displayCollegeCard(college);
+      },
     }),
   ];
 
@@ -196,7 +211,11 @@ const Colleges: React.FC = () => {
         </DeckGL>
       </div>
 
-      <Timeline decisions={parsedDecisions} startAtMostRecent={startAtMostRecent} />
+      <Timeline
+        colleges={colleges}
+        startAtMostRecent={startAtMostRecent}
+        displayCollegeCard={displayCollegeCard}
+      />
 
       <div className="fixed bottom-0 right-0 z-10 flex h-1/5 w-1/5 flex-col items-center justify-evenly rounded-lg bg-gray-100 bg-opacity-25">
         {/* We need smth else for the "what date do u want to get updated on" */}

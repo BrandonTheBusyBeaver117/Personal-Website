@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { motion } from 'framer-motion';
-import { CollegeDecision } from './page';
+import { College } from './page';
 
 const intervalDays = 14;
 
-const calculateMinMaxTimes = (decisions: CollegeDecision[]) => {
-  const timestamps = decisions.map((decision) => new Date(decision['Decision Date']).getTime());
+const calculateMinMaxTimes = (colleges: College[]) => {
+  const timestamps = colleges.map((college) => new Date(college['Decision Date']).getTime());
 
   // console.log(timestamps);
   const minTime = Math.min(...timestamps);
@@ -62,60 +62,50 @@ const calculateMinMaxTimes = (decisions: CollegeDecision[]) => {
   return [minDate.getTime(), maxDate.getTime()];
 };
 
-const calculateMinMaxDecisions = (decisions: CollegeDecision[]) => {
-  const timestamps = decisions.map((decision) => new Date(decision['Decision Date']).getTime());
+const calculateMinMaxDecisions = (colleges: College[]) => {
+  const timestamps = colleges.map((college) => new Date(college['Decision Date']).getTime());
 
   const minTime = Math.min(...timestamps);
   const maxTime = Math.max(...timestamps);
 
-  const earliestDecision = decisions.find((decision) => {
-    // console.log('inspected');
-    // console.log(new Date(decision['Decision Date']).getTime());
-    // console.log('pono');
-    // console.log(minTime);
-
-    return new Date(decision['Decision Date']).getTime() == minTime;
+  const earliestDecision = colleges.find((college) => {
+    return new Date(college['Decision Date']).getTime() == minTime;
   });
 
-  const latestDecision = decisions.find((decision) => {
-    // console.log('inspected');
-    // console.log(new Date(decision['Decision Date']).getTime());
-    // console.log('pono');
-    // console.log(maxTime);
-
-    return new Date(decision['Decision Date']).getTime() == maxTime;
+  const latestDecision = colleges.find((college) => {
+    return new Date(college['Decision Date']).getTime() == maxTime;
   });
 
   return [earliestDecision, latestDecision];
 };
 
-const getValidDecisions = (decisions: CollegeDecision[]): CollegeDecision[] => {
-  return decisions.filter((decisions) => {
-    if (!(decisions.Decision === 'Awaiting...')) {
-      console.log(decisions.College);
-    }
+const getValidDecisions = (college: College[]): College[] => {
+  return college.filter((college) => {
+    // if (!(college.Decision === 'Awaiting...')) {
+    //   console.log(college.College);
+    // }
 
-    return !(decisions.Decision === 'Awaiting...');
+    return !(college.Decision === 'Awaiting...');
   });
 };
 
 // Function to calculate proportional spacing
-const calculatePositions = (decisions: CollegeDecision[]) => {
-  const [minTime, maxTime] = calculateMinMaxTimes(decisions);
+const calculatePositions = (colleges: College[]) => {
+  const [minTime, maxTime] = calculateMinMaxTimes(colleges);
 
   const positionMap = new Map<string, string>();
 
-  for (const decision of decisions) {
-    const time = new Date(decision['Decision Date']).getTime();
-    positionMap.set(decision.College, ((time - minTime) / (maxTime - minTime)) * 100 + '%');
+  for (const college of colleges) {
+    const time = new Date(college['Decision Date']).getTime();
+    positionMap.set(college.College, ((time - minTime) / (maxTime - minTime)) * 100 + '%');
   }
 
   return positionMap;
 };
 
-const calculateLabelPositions = (decisions: CollegeDecision[]): string[][] => {
+const calculateLabelPositions = (colleges: College[]): string[][] => {
   // We assume the interval is correct, bc we calculated it for the same interval
-  const [minTime, maxTime] = calculateMinMaxTimes(decisions);
+  const [minTime, maxTime] = calculateMinMaxTimes(colleges);
 
   const minDate = new Date(minTime);
   const maxDate = new Date(maxTime);
@@ -152,21 +142,22 @@ const calculateLabelPositions = (decisions: CollegeDecision[]): string[][] => {
 };
 
 type TimelineProps = {
-  decisions: CollegeDecision[];
+  colleges: College[];
   startAtMostRecent: boolean;
+  displayCollegeCard: (college: College) => void;
 };
 
-const Timeline: React.FC<TimelineProps> = ({ decisions, startAtMostRecent }) => {
-  const validDecisions = getValidDecisions(decisions);
+const Timeline: React.FC<TimelineProps> = ({ colleges, startAtMostRecent, displayCollegeCard }) => {
+  const validCollegeDecisions = getValidDecisions(colleges);
 
-  const positions = calculatePositions(validDecisions);
+  const positions = calculatePositions(validCollegeDecisions);
 
-  const [earliestDecision, latestDecision] = calculateMinMaxDecisions(validDecisions);
+  const [earliestDecision, latestDecision] = calculateMinMaxDecisions(validCollegeDecisions);
 
   const [selected, setSelected] = useState(startAtMostRecent ? latestDecision : earliestDecision);
   console.log(selected);
 
-  const dateLabelPositions = calculateLabelPositions(validDecisions);
+  const dateLabelPositions = calculateLabelPositions(validCollegeDecisions);
 
   return (
     <div className="absolute bottom-[0.5rem] left-[6rem] mx-auto w-3/5 p-6">
@@ -174,27 +165,30 @@ const Timeline: React.FC<TimelineProps> = ({ decisions, startAtMostRecent }) => 
 
       {/* Events */}
       <div className="relative flex w-full">
-        {validDecisions.map((decision) => {
+        {validCollegeDecisions.map((college) => {
           return (
             <div
-              key={decision.College}
+              key={college.College}
               className="absolute z-10 flex flex-col items-center"
               // Subtrack one px bc half of line height or bc of border?
               style={{
-                left: positions.get(decision.College),
+                left: positions.get(college.College),
                 transform: 'translate(-50%, calc(-50% - 1px))',
               }}
             >
               {/* Step (Clickable Dot, *sitting directly on the line*) */}
               <motion.div
                 className={`flex h-[1rem] w-[1rem] cursor-pointer items-center justify-center rounded-full border-2 ${
-                  selected?.College === decision.College
+                  selected?.College === college.College
                     ? 'border-blue-400 bg-blue-400'
                     : 'border-gray-400 bg-white'
                 }`}
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.9 }}
-                onClick={() => setSelected(decision)}
+                onClick={() => {
+                  displayCollegeCard(college);
+                  setSelected(college);
+                }}
               ></motion.div>
 
               {/* Date Label (Above Dots)
