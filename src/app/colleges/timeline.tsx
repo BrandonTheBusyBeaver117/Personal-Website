@@ -62,29 +62,18 @@ const calculateMinMaxTimes = (colleges: College[]) => {
   return [minDate.getTime(), maxDate.getTime()];
 };
 
-const calculateMinMaxDecisions = (colleges: College[]) => {
-  const timestamps = colleges.map((college) => new Date(college['Decision Date']).getTime());
+export const calculateMinMaxDecisions = (colleges: College[]): [College, College] => {
+  const collegesCopy = [...colleges];
 
-  const minTime = Math.min(...timestamps);
-  const maxTime = Math.max(...timestamps);
-
-  const earliestDecision = colleges.find((college) => {
-    return new Date(college['Decision Date']).getTime() == minTime;
+  collegesCopy.sort((a, b) => {
+    return new Date(a['Decision Date']).getTime() - new Date(b['Decision Date']).getTime();
   });
 
-  const latestDecision = colleges.find((college) => {
-    return new Date(college['Decision Date']).getTime() == maxTime;
-  });
-
-  return [earliestDecision, latestDecision];
+  return [collegesCopy[0], collegesCopy[collegesCopy.length - 1]];
 };
 
-const getValidDecisions = (college: College[]): College[] => {
+export const getValidDecisions = (college: College[]): College[] => {
   return college.filter((college) => {
-    // if (!(college.Decision === 'Awaiting...')) {
-    //   console.log(college.College);
-    // }
-
     return !(college.Decision === 'Awaiting...');
   });
 };
