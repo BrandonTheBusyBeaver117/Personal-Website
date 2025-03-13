@@ -17,7 +17,7 @@ import { GeoJSON } from 'geojson';
 import COLLEGE_DATA from './college_decisions.json';
 
 import { FormControlLabel, FormGroup, Switch } from '@mui/material';
-import Timeline from './timeline';
+import Timeline, { calculateMinMaxDecisions, getValidDecisions } from './timeline';
 
 import Loading from '../components/loading';
 import CollegeCard from './collegecard';
@@ -58,9 +58,13 @@ const Colleges: React.FC = () => {
   const [isDeckRendered, setIsDeckRendered] = useState(false);
   const [shouldZoom, setShouldZoom] = useState(true);
   const [startAtMostRecent, setStartAtMostRecent] = useState(false);
-  const [isLeftAligned, setLeftAligned] = useState(true);
+  const [isCardVisible, setIsCardVisible] = useState(true);
 
-  const [selectedCollege, setSelectedCollege] = useState<College | null>(null);
+  const [minDecision, maxDecision] = calculateMinMaxDecisions(getValidDecisions(colleges));
+
+  const [selectedCollege, setSelectedCollege] = useState<College>(
+    startAtMostRecent ? minDecision : maxDecision,
+  );
 
   useEffect(() => {
     if (!selectedCollege) {
@@ -68,12 +72,6 @@ const Colleges: React.FC = () => {
     }
     flyToCollege(selectedCollege);
   }, [selectedCollege]);
-
-  // const [parsedDecisions, setParsedDecisions] = useState<CollegeDecision[]>(
-  //   COLLEGE_DECISIONS as CollegeDecision[],
-  // );
-
-  // console.log(parsedDecisions);
 
   const MAPBOX_KEY =
     'pk.eyJ1IjoicGFzc2FiZWF2ZXI5MDkiLCJhIjoiY203cHZkdGg0MG9zcDJqb3AzMjE5cGRlayJ9.nBKnKKs04SY1UOuMe1aY_g';
@@ -88,10 +86,6 @@ const Colleges: React.FC = () => {
   };
 
   const [viewState, setViewState] = useState<MapViewState>(initialViewState);
-
-  const displayCollegeCard = (college: College) => {
-    setLeftAligned(college.CardPlacement == 'left');
-  };
 
   const getCursor = (state: CursorState) => {
     if (state.isDragging) return 'grabbing';
@@ -130,6 +124,7 @@ const Colleges: React.FC = () => {
   const interpolator = new FlyToInterpolator({ speed: 3 / 4 });
 
   const flyToCollege = (college: College) => {
+    setIsCardVisible(false);
     const zoom = 10;
     const shiftedLongitude = getTranslatedLongitude(
       college.Longitude,
@@ -145,11 +140,12 @@ const Colleges: React.FC = () => {
       transitionInterpolator: interpolator,
       transitionDuration: 'auto',
       transitionEasing: customTransitionEasing,
-      onTransitionEnd: () => displayCollegeCard(college),
+      onTransitionEnd: () => setIsCardVisible(true),
     });
   };
 
   const resetCamera = () => {
+    setIsCardVisible(false);
     setViewState({
       ...initialViewState,
       transitionInterpolator: interpolator,
@@ -242,9 +238,7 @@ const Colleges: React.FC = () => {
         shouldZoom={shouldZoom}
       />
 
-      <CollegeCard
-        isLeftAligned={selectedCollege ? selectedCollege.CardPlacement == 'left' : true}
-      />
+      <CollegeCard selectedCollege={selectedCollege} isCardVisible={isCardVisible} />
 
       <div className="fixed bottom-0 right-0 z-10 flex h-1/5 w-1/5 flex-col items-center justify-evenly rounded-lg bg-gray-100 bg-opacity-25">
         {/* We need smth else for the "what date do u want to get updated on" */}
