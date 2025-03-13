@@ -144,10 +144,16 @@ const calculateLabelPositions = (colleges: College[]): string[][] => {
 type TimelineProps = {
   colleges: College[];
   startAtMostRecent: boolean;
-  displayCollegeCard: (college: College) => void;
+  setSelectedMapCollege: (college: College) => void;
+  shouldZoom: boolean;
 };
 
-const Timeline: React.FC<TimelineProps> = ({ colleges, startAtMostRecent, displayCollegeCard }) => {
+const Timeline: React.FC<TimelineProps> = ({
+  colleges,
+  startAtMostRecent,
+  setSelectedMapCollege,
+  shouldZoom,
+}) => {
   const validCollegeDecisions = getValidDecisions(colleges);
 
   const positions = calculatePositions(validCollegeDecisions);
@@ -186,7 +192,9 @@ const Timeline: React.FC<TimelineProps> = ({ colleges, startAtMostRecent, displa
                 whileHover={{ scale: 1.2 }}
                 whileTap={{ scale: 0.9 }}
                 onClick={() => {
-                  displayCollegeCard(college);
+                  if (shouldZoom) {
+                    setSelectedMapCollege(college);
+                  }
                   setSelected(college);
                 }}
               ></motion.div>

@@ -2,9 +2,15 @@
 
 import Link from 'next/link';
 
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
-import DeckGL, { GeoJsonLayer, PickingInfo, FlyToInterpolator, MapViewState } from 'deck.gl';
+import DeckGL, {
+  GeoJsonLayer,
+  PickingInfo,
+  FlyToInterpolator,
+  MapViewState,
+  WebMercatorViewport,
+} from 'deck.gl';
 import Map from 'react-map-gl/mapbox';
 import { GeoJSON } from 'geojson';
 
@@ -14,6 +20,7 @@ import { FormControlLabel, FormGroup, Switch } from '@mui/material';
 import Timeline from './timeline';
 
 import Loading from '../components/loading';
+import CollegeCard from './collegecard';
 
 export type College = {
   College: string; // College name
@@ -21,6 +28,7 @@ export type College = {
   'Decision Date': string; // Date in string format (can be converted to Date if needed)
   Prediction: 'ACCEPTED' | 'Rejected lol' | 'Waitlisted' | 'Awaiting...'; // Prediction type
   Decision: 'ACCEPTED' | 'Rejected lol' | 'Waitlisted' | 'Awaiting...'; // Actual decision (optional if undecided)
+  'Waitlist Date': string;
   OfficialName: string;
   Alias: string;
   Address: string;
@@ -30,6 +38,7 @@ export type College = {
   County: string;
   Latitude: number;
   Longitude: number;
+  CardPlacement: 'left' | 'right';
 };
 
 type CollegeGeoJSON = {
@@ -49,6 +58,16 @@ const Colleges: React.FC = () => {
   const [isDeckRendered, setIsDeckRendered] = useState(false);
   const [shouldZoom, setShouldZoom] = useState(true);
   const [startAtMostRecent, setStartAtMostRecent] = useState(false);
+  const [isLeftAligned, setLeftAligned] = useState(true);
+
+  const [selectedCollege, setSelectedCollege] = useState<College | null>(null);
+
+  useEffect(() => {
+    if (!selectedCollege) {
+      return;
+    }
+    flyToCollege(selectedCollege);
+  }, [selectedCollege]);
 
   // const [parsedDecisions, setParsedDecisions] = useState<CollegeDecision[]>(
   //   COLLEGE_DECISIONS as CollegeDecision[],
@@ -71,7 +90,7 @@ const Colleges: React.FC = () => {
   const [viewState, setViewState] = useState<MapViewState>(initialViewState);
 
   const displayCollegeCard = (college: College) => {
-    flyToCollege(college.Longitude, college.Latitude);
+    setLeftAligned(college.CardPlacement == 'left');
   };
 
   const getCursor = (state: CursorState) => {
@@ -84,16 +103,49 @@ const Colleges: React.FC = () => {
     return -(Math.cos(Math.PI * x) - 1) / 2;
   };
 
+  // Function to shift longitude
+  const getTranslatedLongitude = (
+    longitude: number,
+    latitude: number,
+    zoom: number,
+    isLeft: boolean,
+  ) => {
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+
+    const viewport = new WebMercatorViewport({ longitude, latitude, zoom, width, height });
+
+    // Basically, move the center over to the right if the card is on the left
+    // I believe this is spacing from the right
+    const position = isLeft ? 0.3 : 0.7;
+
+    // Convert the left screen percentage to a world position
+    const worldCoordsLeft = viewport.unproject([position * width, height / 2]);
+
+    console.log(worldCoordsLeft);
+
+    return worldCoordsLeft[0]; // New longitude
+  };
+
   const interpolator = new FlyToInterpolator({ speed: 3 / 4 });
 
-  const flyToCollege = (longitude: number, latitude: number) => {
+  const flyToCollege = (college: College) => {
+    const zoom = 10;
+    const shiftedLongitude = getTranslatedLongitude(
+      college.Longitude,
+      college.Latitude,
+      zoom,
+      college.CardPlacement == 'left',
+    );
+
     setViewState({
-      longitude: longitude,
-      latitude: latitude,
-      zoom: 10,
+      longitude: shiftedLongitude,
+      latitude: college.Latitude,
+      zoom: zoom,
       transitionInterpolator: interpolator,
       transitionDuration: 'auto',
       transitionEasing: customTransitionEasing,
+      onTransitionEnd: () => displayCollegeCard(college),
     });
   };
 
@@ -161,7 +213,8 @@ const Colleges: React.FC = () => {
           console.log(college);
           return;
         }
-        displayCollegeCard(college);
+        setSelectedCollege(college);
+        // flyToCollege(college);
       },
     }),
   ];
@@ -185,7 +238,12 @@ const Colleges: React.FC = () => {
       <Timeline
         colleges={colleges}
         startAtMostRecent={startAtMostRecent}
-        displayCollegeCard={displayCollegeCard}
+        setSelectedMapCollege={setSelectedCollege}
+        shouldZoom={shouldZoom}
+      />
+
+      <CollegeCard
+        isLeftAligned={selectedCollege ? selectedCollege.CardPlacement == 'left' : true}
       />
 
       <div className="fixed bottom-0 right-0 z-10 flex h-1/5 w-1/5 flex-col items-center justify-evenly rounded-lg bg-gray-100 bg-opacity-25">

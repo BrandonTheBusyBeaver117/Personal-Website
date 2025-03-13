@@ -5,6 +5,7 @@
     "Decision Date": "",
     "Prediction": "ACCEPTED",
     "Decision": "Awaiting...",
+    "Waitlist Date": "",
     "OfficialName": "Stanford University",
     "Alias": "Stanford",
     "Address": "450 Jane Stanford Way",
@@ -13,7 +14,8 @@
     "Population": 32626,
     "County": "Santa Clara",
     "Latitude": 37.4329738,
-    "Longitude": -122.1750451
+    "Longitude": -122.1750451,
+    "CardPlacement": "left"
   },
   {
     "College": "UC Berkeley",
@@ -21,15 +23,17 @@
     "Decision Date": "Late March",
     "Prediction": "Rejected lol",
     "Decision": "Awaiting...",
+    "Waitlist Date": "",
     "OfficialName": "University of California - Berkeley",
     "Alias": "UC Berkeley",
     "Address": "200 California Hall",
     "City": "Berkeley",
     "State": "CA",
     "Population": 54449,
-    "County": "ALAMEDA",
+    "County": "Alameda",
     "Latitude": 37.875759,
-    "Longitude": -122.24851
+    "Longitude": -122.24851,
+    "CardPlacement": "right"
   },
   {
     "College": "MIT",
@@ -37,15 +41,17 @@
     "Decision Date": "",
     "Prediction": "Rejected lol",
     "Decision": "Awaiting...",
+    "Waitlist Date": "",
     "OfficialName": "Massachusetts Institute of Technology",
     "Alias": "MIT",
     "Address": "77 Massachusetts Avenue",
     "City": "Cambridge",
     "State": "MA",
     "Population": 25286,
-    "County": "MIDDLESEX",
+    "County": "Middlesex",
     "Latitude": 42.36009534,
-    "Longitude": -71.09211458
+    "Longitude": -71.09211458,
+    "CardPlacement": "right"
   },
   {
     "College": "Caltech",
@@ -53,15 +59,17 @@
     "Decision Date": "3/8/2025",
     "Prediction": "Rejected lol",
     "Decision": "Rejected lol",
+    "Waitlist Date": "",
     "OfficialName": "California Institute of Technology",
     "Alias": "Caltech",
     "Address": "1200 E California Blvd",
     "City": "Pasadena",
     "State": "CA",
     "Population": 5508,
-    "County": "LOS ANGELES",
+    "County": "Los Angeles",
     "Latitude": 34.13918094,
-    "Longitude": -118.1255674
+    "Longitude": -118.1255674,
+    "CardPlacement": "right"
   },
   {
     "College": "UC Los Angeles (UCLA)",
@@ -69,6 +77,7 @@
     "Decision Date": "",
     "Prediction": "Rejected lol",
     "Decision": "Awaiting...",
+    "Waitlist Date": "",
     "OfficialName": "University of California - Los Angeles",
     "Alias": "UCLA",
     "Address": "405 Hilgard Ave",
@@ -77,7 +86,8 @@
     "Population": 69845,
     "County": "Los Angeles",
     "Latitude": 34.0688923,
-    "Longitude": -118.4439005
+    "Longitude": -118.4439005,
+    "CardPlacement": "left"
   },
   {
     "College": "Cornell",
@@ -85,6 +95,7 @@
     "Decision Date": "",
     "Prediction": "Rejected lol",
     "Decision": "Awaiting...",
+    "Waitlist Date": "",
     "OfficialName": "Cornell University",
     "Alias": "Cornell",
     "Address": "300 Day Hall",
@@ -93,7 +104,8 @@
     "Population": 34682,
     "County": "Tompkins",
     "Latitude": 42.448713,
-    "Longitude": -76.476535
+    "Longitude": -76.476535,
+    "CardPlacement": "left"
   },
   {
     "College": "Brown",
@@ -101,6 +113,7 @@
     "Decision Date": "",
     "Prediction": "Rejected lol",
     "Decision": "Awaiting...",
+    "Waitlist Date": "",
     "OfficialName": "Brown University",
     "Alias": "Brown",
     "Address": "One Prospect Street",
@@ -109,7 +122,8 @@
     "Population": 14602,
     "County": "Providence",
     "Latitude": 41.82685309,
-    "Longitude": -71.40292511
+    "Longitude": -71.40292511,
+    "CardPlacement": "left"
   },
   {
     "College": "Carnegie Mellon (CMU)",
@@ -117,6 +131,7 @@
     "Decision Date": "",
     "Prediction": "Rejected lol",
     "Decision": "Awaiting...",
+    "Waitlist Date": "",
     "OfficialName": "Carnegie Mellon University",
     "Alias": "CMU",
     "Address": "5000 Forbes Avenue",
@@ -125,7 +140,8 @@
     "Population": 19307,
     "County": "Allegheny",
     "Latitude": 40.44359759,
-    "Longitude": -79.94348507
+    "Longitude": -79.94348507,
+    "CardPlacement": "right"
   },
   {
     "College": "Princeton",
@@ -133,6 +149,7 @@
     "Decision Date": "",
     "Prediction": "Rejected lol",
     "Decision": "Awaiting...",
+    "Waitlist Date": "",
     "OfficialName": "Princeton University",
     "Alias": "Princeton",
     "Address": "1 Nassau Hall",
@@ -141,7 +158,8 @@
     "Population": 14959,
     "County": "Mercer",
     "Latitude": 40.34714142,
-    "Longitude": -74.65769781
+    "Longitude": -74.65769781,
+    "CardPlacement": "right"
   },
   {
     "College": "UC San Diego (UCSD)",
@@ -149,6 +167,7 @@
     "Decision Date": "",
     "Prediction": "Rejected lol",
     "Decision": "Awaiting...",
+    "Waitlist Date": "",
     "OfficialName": "University of California - San Diego",
     "Alias": "UCSD",
     "Address": "9500 Gilman Dr",
@@ -157,7 +176,8 @@
     "Population": 55842,
     "County": "San Diego",
     "Latitude": 32.87659766,
-    "Longitude": -117.2377935
+    "Longitude": -117.2377935,
+    "CardPlacement": "right"
   },
   {
     "College": "UC Santa Barbara (UCSB)",
@@ -165,6 +185,7 @@
     "Decision Date": "",
     "Prediction": "Rejected lol",
     "Decision": "Awaiting...",
+    "Waitlist Date": "",
     "OfficialName": "University of California - Santa Barbara",
     "Alias": "UCSB",
     "Address": "5221 Cheadle Hall",
@@ -173,7 +194,8 @@
     "Population": 31335,
     "County": "Santa Barbara",
     "Latitude": 34.412344,
-    "Longitude": -119.851493
+    "Longitude": -119.851493,
+    "CardPlacement": "right"
   },
   {
     "College": "Cal Poly SLO",
@@ -181,6 +203,7 @@
     "Decision Date": "",
     "Prediction": "Rejected lol",
     "Decision": "Awaiting...",
+    "Waitlist Date": "",
     "OfficialName": "California Polytechnic State University - San Luis Obispo",
     "Alias": "Cal Poly SLO",
     "Address": "1 Grand Ave.",
@@ -189,7 +212,8 @@
     "Population": 25254,
     "County": "San Luis Obispo",
     "Latitude": 35.30237596,
-    "Longitude": -120.6615969
+    "Longitude": -120.6615969,
+    "CardPlacement": "left"
   },
   {
     "College": "UC Irvine",
@@ -197,6 +221,7 @@
     "Decision Date": "",
     "Prediction": "Rejected lol",
     "Decision": "Awaiting...",
+    "Waitlist Date": "",
     "OfficialName": "University of California - Irvine",
     "Alias": "UC Irvine",
     "Address": "501 Aldrich Hall",
@@ -205,7 +230,8 @@
     "Population": 45633,
     "County": "Orange",
     "Latitude": 33.643163,
-    "Longitude": -117.837785
+    "Longitude": -117.837785,
+    "CardPlacement": "left"
   },
   {
     "College": "San Jose State",
@@ -213,6 +239,7 @@
     "Decision Date": "2/10/2025",
     "Prediction": "ACCEPTED",
     "Decision": "ACCEPTED",
+    "Waitlist Date": "",
     "OfficialName": "San Jose State University",
     "Alias": "San Jose State",
     "Address": "1 Washington Square",
@@ -221,7 +248,8 @@
     "Population": 39794,
     "County": "Santa Clara",
     "Latitude": 37.33750869,
-    "Longitude": -121.8804585
+    "Longitude": -121.8804585,
+    "CardPlacement": "right"
   },
   {
     "College": "UC Davis",
@@ -229,6 +257,7 @@
     "Decision Date": "3/7/2025",
     "Prediction": "ACCEPTED",
     "Decision": "ACCEPTED",
+    "Waitlist Date": "",
     "OfficialName": "University of California - Davis",
     "Alias": "UC Davis",
     "Address": "1 Shields Avenue",
@@ -237,7 +266,8 @@
     "Population": 52829,
     "County": "Yolo",
     "Latitude": 38.53820558,
-    "Longitude": -121.75103
+    "Longitude": -121.75103,
+    "CardPlacement": "left"
   },
   {
     "College": "Harvey Mudd",
@@ -245,6 +275,7 @@
     "Decision Date": "",
     "Prediction": "ACCEPTED",
     "Decision": "Awaiting...",
+    "Waitlist Date": "",
     "OfficialName": "Harvey Mudd College",
     "Alias": "Harvey Mudd",
     "Address": "301 Platt Blvd.",
@@ -253,7 +284,8 @@
     "Population": 1210,
     "County": "Los Angeles",
     "Latitude": 34.10571676,
-    "Longitude": -117.7097583
+    "Longitude": -117.7097583,
+    "CardPlacement": "left"
   },
   {
     "College": "Purdue",
@@ -261,6 +293,7 @@
     "Decision Date": "",
     "Prediction": "ACCEPTED",
     "Decision": "Awaiting...",
+    "Waitlist Date": "",
     "OfficialName": "Purdue University - West Lafayette",
     "Alias": "Purdue",
     "Address": "610 Purdue Mall",
@@ -269,7 +302,8 @@
     "Population": 58024,
     "County": "Tippecanoe",
     "Latitude": 40.428206,
-    "Longitude": -86.914435
+    "Longitude": -86.914435,
+    "CardPlacement": "left"
   },
   {
     "College": "USC",
@@ -277,6 +311,7 @@
     "Decision Date": "",
     "Prediction": "Rejected lol",
     "Decision": "Awaiting...",
+    "Waitlist Date": "",
     "OfficialName": "University of Southern California",
     "Alias": "USC",
     "Address": "3470 Trousdale Parkway",
@@ -285,7 +320,8 @@
     "Population": 62935,
     "County": "Los Angeles",
     "Latitude": 34.021058,
-    "Longitude": -118.283858
+    "Longitude": -118.283858,
+    "CardPlacement": "left"
   },
   {
     "College": "UC Merced",
@@ -293,6 +329,7 @@
     "Decision Date": "12/18/2024",
     "Prediction": "ACCEPTED",
     "Decision": "ACCEPTED",
+    "Waitlist Date": "",
     "OfficialName": "University of California - Merced",
     "Alias": "UC Merced",
     "Address": "5200 North Lake Road",
@@ -301,7 +338,8 @@
     "Population": 10802,
     "County": "Merced",
     "Latitude": 37.36623735,
-    "Longitude": -120.4249442
+    "Longitude": -120.4249442,
+    "CardPlacement": "left"
   },
   {
     "College": "Cal Poly Pomona",
@@ -309,6 +347,7 @@
     "Decision Date": "2/4/2025",
     "Prediction": "ACCEPTED",
     "Decision": "ACCEPTED",
+    "Waitlist Date": "",
     "OfficialName": "California State Polytechnic University - Pomona",
     "Alias": "Cal Poly Pomona",
     "Address": "3801 W Temple Avenue",
@@ -317,7 +356,8 @@
     "Population": 32636,
     "County": "Los Angeles",
     "Latitude": 34.05427317,
-    "Longitude": -117.819019
+    "Longitude": -117.819019,
+    "CardPlacement": "right"
   },
   {
     "College": "UC Santa Cruz",
@@ -325,6 +365,7 @@
     "Decision Date": "2/21/2025",
     "Prediction": "ACCEPTED",
     "Decision": "ACCEPTED",
+    "Waitlist Date": "",
     "OfficialName": "University of California - Santa Cruz",
     "Alias": "UC Santa Cruz",
     "Address": "1156 High St",
@@ -333,7 +374,8 @@
     "Population": 23091,
     "County": "Santa Cruz",
     "Latitude": 36.99901842,
-    "Longitude": -122.0607261
+    "Longitude": -122.0607261,
+    "CardPlacement": "left"
   },
   {
     "College": "UC Riverside",
@@ -341,6 +383,7 @@
     "Decision Date": "2/28/2025",
     "Prediction": "ACCEPTED",
     "Decision": "ACCEPTED",
+    "Waitlist Date": "",
     "OfficialName": "University of California - Riverside",
     "Alias": "UC Riverside",
     "Address": "900 University Ave",
@@ -349,7 +392,8 @@
     "Population": 30913,
     "County": "Riverside",
     "Latitude": 33.9745475,
-    "Longitude": -117.3287661
+    "Longitude": -117.3287661,
+    "CardPlacement": "right"
   },
   {
     "College": "San Diego State",
@@ -357,6 +401,7 @@
     "Decision Date": "12/17/2024",
     "Prediction": "ACCEPTED",
     "Decision": "ACCEPTED",
+    "Waitlist Date": "",
     "OfficialName": "San Diego State University",
     "Alias": "San Diego State",
     "Address": "5500 Campanile Dr",
@@ -365,7 +410,8 @@
     "Population": 40053,
     "County": "San Diego",
     "Latitude": 32.7752498,
-    "Longitude": -117.0712279
+    "Longitude": -117.0712279,
+    "CardPlacement": "left"
   },
   {
     "College": "Santa Clara",
@@ -373,6 +419,7 @@
     "Decision Date": "April 1st",
     "Prediction": "ACCEPTED",
     "Decision": "Awaiting...",
+    "Waitlist Date": "",
     "OfficialName": "Santa Clara University",
     "Alias": "Santa Clara",
     "Address": "500 El Camino Real",
@@ -381,14 +428,16 @@
     "Population": 10459,
     "County": "Santa Clara",
     "Latitude": 37.34935096,
-    "Longitude": -121.9382604
+    "Longitude": -121.9382604,
+    "CardPlacement": "left"
   },
   {
     "College": "Northeastern",
     "Ranking": 25,
-    "Decision Date": "April 1st",
+    "Decision Date": "3/12/2025",
     "Prediction": "ACCEPTED",
-    "Decision": "Awaiting...",
+    "Decision": "Waitlisted",
+    "Waitlist Date": "3/12/2025",
     "OfficialName": "Northeastern University",
     "Alias": "Northeastern",
     "Address": "360 Huntington Ave",
@@ -397,7 +446,8 @@
     "Population": 27955,
     "County": "Suffolk",
     "Latitude": 42.34018276,
-    "Longitude": -71.08806856
+    "Longitude": -71.08806856,
+    "CardPlacement": "right"
   },
   {
     "College": "SF State",
@@ -405,14 +455,16 @@
     "Decision Date": "12/3/2024",
     "Prediction": "ACCEPTED",
     "Decision": "ACCEPTED",
+    "Waitlist Date": "",
     "OfficialName": "San Francisco State University",
     "Alias": "SF State",
     "Address": "1600 Holloway Ave",
     "City": "San Francisco",
     "State": "CA",
     "Population": 30596,
-    "County": "SAN FRANCISCO",
+    "County": "San Francisco",
     "Latitude": 37.72134502,
-    "Longitude": -122.4779048
+    "Longitude": -122.4779048,
+    "CardPlacement": "left"
   }
 ]
